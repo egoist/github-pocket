@@ -3,3 +3,14 @@
   align-items: center;
   justify-content: center;
 }
+
+.pocket .boxed-group-action button {
+  padding: 2px 6px 5px 10px;
+  margin-top: 0;
+  margin-right: 0;
+  line-height: 20px;
+  color: #767676;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}

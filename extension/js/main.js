@@ -16,6 +16,10 @@ store.$on('TOGGLE_REPO', repo => {
   }
   localStorage.setItem('pocket:repos', JSON.stringify(store.repos))
 })
+store.$on('REMOVE_ALL_REPOS', () => {
+  store.repos = []
+  localStorage.setItem('pocket:repos', JSON.stringify(store.repos))
+})
 
 // pocket list in home page
 function addPocketList() {
@@ -26,6 +30,11 @@ function addPocketList() {
     sidebar.insertBefore(pocket, sidebar.firstChild)
     const Pocket = {
       template: `<div class="pocket boxed-group flush">
+        <div class="boxed-group-action" v-if="repos.length > 0">
+          <button type="button" @click="removeAllRepos" class="mark-all-as-read css-truncate tooltipped tooltipped-w" aria-label="Mark all repos as read and remove from pocket">
+            <svg aria-hidden="true" class="octicon octicon-check" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+          </button>
+        </div>
         <h3>
           Pocket
           <span class="counter" v-if="repos.length > 5">{{repos.length}}</span>
@@ -57,6 +66,11 @@ function addPocketList() {
               slug: repo
             }
           })
+        }
+      },
+      methods: {
+        removeAllRepos() {
+          store.$emit('REMOVE_ALL_REPOS')
         }
       }
     }
@@ -93,12 +107,7 @@ function addPocketButton() {
       },
       methods: {
         toggleRepo() {
-          if (this.added) {
-            store.repos = store.repos.filter(repo => repo !== this.repo)
-          } else {
-            store.repos.unshift(this.repo)
-          }
-          localStorage.setItem('pocket:repos', JSON.stringify(store.repos))
+          store.$emit('TOGGLE_REPO', this.repo)
         }
       }
     })
