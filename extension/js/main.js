@@ -26,7 +26,10 @@ function addPocketList() {
     sidebar.insertBefore(pocket, sidebar.firstChild)
     const Pocket = {
       template: `<div class="pocket boxed-group flush">
-        <h3>Pocket</h3>
+        <h3>
+          Pocket
+          <span class="counter" v-if="repos.length > 5">{{repos.length}}</span>
+        </h3>
         <div class="boxed-group-inner">
           <ul class="mini-repo-list js-repo-list" v-if="repos.length > 0">
             <li v-for="repo in repos">
