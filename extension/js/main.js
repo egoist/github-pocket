@@ -1,5 +1,23 @@
 const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
 
+const pocketIcon = `<svg class="octicon octicon-watch" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path d="M6 8h2v1H5V5h1v3zm6 0c0 2.22-1.2 4.16-3 5.19V15c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1v-1.81C1.2 12.16 0 10.22 0 8s1.2-4.16 3-5.19V1c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v1.81c1.8 1.03 3 2.97 3 5.19zm-1 0c0-2.77-2.23-5-5-5S1 5.23 1 8s2.23 5 5 5 5-2.23 5-5z"></path></svg>`
+
+const store = new Vue({
+  data: {
+    repos: JSON.parse(localStorage.getItem('pocket:repos') || '[]')
+  }
+})
+store.$on('TOGGLE_REPO', repo => {
+  if (store.repos.indexOf(repo) !== -1) {
+    store.repos = store.repos.filter(slug => slug !== repo)
+  } else {
+    store.repos.unshift(repo)
+  }
+  localStorage.setItem('pocket:repos', JSON.stringify(store.repos))
+})
+
+// pocket list in home page
 function addPocketList() {
   const sidebar = $('.dashboard-sidebar')
   if (sidebar) {
@@ -26,14 +44,9 @@ function addPocketList() {
           </div>
         </div>
       </div>`,
-      data() {
-        return {
-          pocket: JSON.parse(localStorage.getItem('pocket:repo') || '[]')
-        }
-      },
       computed: {
         repos() {
-          return this.pocket.map(repo => {
+          return store.repos.map(repo => {
             const sep = repo.indexOf('/')
             return {
               user: repo.substr(0, sep),
@@ -51,6 +64,7 @@ function addPocketList() {
   }
 }
 
+// add-to-pocket button in repo page
 function addPocketButton() {
   const actions = $('.pagehead-actions')
   if (actions) {
@@ -61,39 +75,70 @@ function addPocketButton() {
       el: '.add-to-pocket',
       template: `<li>
         <a @click="toggleRepo" class="btn btn-sm" title="Read this repo later" aria-label="Read this repo later">
-          <svg class="octicon octicon-watch" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path d="M6 8h2v1H5V5h1v3zm6 0c0 2.22-1.2 4.16-3 5.19V15c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1v-1.81C1.2 12.16 0 10.22 0 8s1.2-4.16 3-5.19V1c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v1.81c1.8 1.03 3 2.97 3 5.19zm-1 0c0-2.77-2.23-5-5-5S1 5.23 1 8s2.23 5 5 5 5-2.23 5-5z"></path></svg>        
+          ${pocketIcon}
           {{ added ? 'Unpocket' : 'Pocket' }}
         </a>
         
       </li>`,
       data: {
-        pocket: JSON.parse(localStorage.getItem('pocket:repo') || '[]'),
         repo: location.pathname.substr(1)
       },
       computed: {
         added() {
-          return this.pocket.indexOf(this.repo) !== -1
+          return store.repos.indexOf(this.repo) !== -1
         }
       },
       methods: {
         toggleRepo() {
           if (this.added) {
-            this.pocket = this.pocket.filter(repo => repo !== this.repo)
+            store.repos = store.repos.filter(repo => repo !== this.repo)
           } else {
-            this.pocket.unshift(this.repo)
+            store.repos.unshift(this.repo)
           }
-          localStorage.setItem('pocket:repo', JSON.stringify(this.pocket))
+          localStorage.setItem('pocket:repos', JSON.stringify(store.repos))
         }
       }
     })
   }
 }
 
+// add-to-pocket button in trending page
+function addPocketTrending() {
+  if (!/\/trending(\/\w+)?/.test(location.pathname)) return
+
+  $$('.repo-list-stats').forEach(repoStats => {
+    const pocketButton = document.createElement('button')
+    repoStats.appendChild(pocketButton)
+
+    const slug = repoStats.parentNode.querySelector('.repo-list-name a').getAttribute('href').substr(1)
+
+    new Vue({
+      el: pocketButton,
+      data: {
+        repo: slug
+      },
+      template: `<button @click="toggleRepo" class="btn btn-sm" style="margin-left: 5px;">
+        ${pocketIcon}
+        {{ added ? 'Unpocket' : 'Pocket' }}
+      </button>`,
+      computed: {
+        added() {
+          return store.repos.indexOf(this.repo) !== -1
+        }
+      },
+      methods: {
+        toggleRepo() {
+          store.$emit('TOGGLE_REPO', this.repo)
+        }
+      }
+    })
+  })
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('lol')
   addPocketButton()
   addPocketList()
+  addPocketTrending()
 
   const container = $('#js-repo-pjax-container')
 

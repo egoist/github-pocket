@@ -18,6 +18,9 @@
       "js": [
         "js/vue.js",
         "js/main.js"
+      ],
+      "css": [
+        "css/main.css"
       ]
     }
   ]
