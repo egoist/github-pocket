@@ -1,0 +1,24 @@
+{
+  "description": "Read It Later for GitHUb",
+  "manifest_version": 2,
+  "name": "GitHub Pocket",
+  "offline_enabled": true,
+  "version": "0.1.0",
+  "icons": {
+    "128": "img/icon.png"
+  },
+  "permissions": [
+    "https://github.com/*",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": ["https://github.com/*"],
+      "js": [
+        "js/vue.js",
+        "js/main.js"
+      ]
+    }
+  ]
+}
