@@ -1,6 +1,6 @@
 # GitHub Pocket
 
-Ahhhhh, sometimes I don't want to star a repo, I just have no time to know if it's really interesting, but it looks is! I don't want to miss good stuff either. So just add it to pocket and read it later!
+Ahhhhh, sometimes I don't want to star a repo, I just have no time to know if it's really interesting, but it looks it is! I don't want to miss good stuff either. So I just add it to pocket and read it later!
 
 ## Pocket it
 
