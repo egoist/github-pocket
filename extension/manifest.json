@@ -1,5 +1,5 @@
 {
-  "description": "Read It Later for GitHUb",
+  "description": "Read It Later for GitHub",
   "manifest_version": 2,
   "name": "GitHub Pocket",
   "offline_enabled": true,
