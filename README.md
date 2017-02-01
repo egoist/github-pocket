@@ -12,7 +12,10 @@ Ahhhhh, sometimes I don't want to star a repo, I just have no time to know if it
 
 ## Install
 
-[Manually install this extension](http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system/247654#247654):
+### From Chrome Web Store
+You can install the extension [here](https://chrome.google.com/webstore/detail/github-pocket/cfkoiggmhiohdhpkcpinclakhcodmdal).
+
+### [Manuall install](http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system/247654#247654):
 
 ```
 Navigate to chrome://extensions
