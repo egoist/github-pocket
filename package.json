@@ -13,6 +13,7 @@
     "vuex": "^2.1.2"
   },
   "devDependencies": {
-    "raw-loader": "^0.5.1"
+    "raw-loader": "^0.5.1",
+    "vbuild": "^6.13.0"
   }
 }
