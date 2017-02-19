@@ -1,7 +1,7 @@
 {
-  "description": "Read It Later for GitHub",
+  "description": "A Chrome extension to improve GitHub",
   "manifest_version": 2,
-  "name": "GitHub Pocket",
+  "name": "GitHub Improved",
   "offline_enabled": true,
   "version": "0.1.0",
   "icons": {
@@ -16,11 +16,10 @@
       "run_at": "document_start",
       "matches": ["https://github.com/*"],
       "js": [
-        "js/vue.js",
-        "js/main.js"
+        "dist/github-improved.js"
       ],
       "css": [
-        "css/main.css"
+        "dist/github-improved.css"
       ]
     }
   ]

@@ -1,14 +1,8 @@
-# GitHub Pocket
+# GitHub Improved
 
-Ahhhhh, sometimes I don't want to star a repo, I just have no time to know if it's really interesting, but it looks it is! I don't want to miss good stuff either. So I just add it to pocket and read it later!
+## Features
 
-## Pocket it
-
-![preview](./media/preview-0.png)
-
-## View your pocket
-
-![preview1](./media/preview-1.png)
+- Add to pocket (like GitHub start but works locally)
 
 ## Install
 
@@ -22,6 +16,17 @@ Navigate to chrome://extensions
 Expand the developer dropdown menu and click "Load Unpacked Extension"
 Navigate to local folder
 Assuming there are no errors, the extension should load into your browser
+```
+
+## Development
+
+```bash
+# Install dependencies
+yarn
+# build and watch files
+yarn dev
+# build for production
+yarn build
 ```
 
 ## License
