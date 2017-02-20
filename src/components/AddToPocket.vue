@@ -9,11 +9,12 @@
 
 <script>
   import pocketIcon from '!raw-loader!svg/pocket.svg'
+  import {$} from 'dom'
 
   export default {
     data() {
       return {
-        repo: location.pathname.substr(1),
+        repo: $('meta[name="octolytics-dimension-repository_nwo"]').getAttribute('content'),
         pocketIcon
       }
     },

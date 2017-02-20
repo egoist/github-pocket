@@ -3,11 +3,10 @@ import store from 'store'
 import Pocket from 'components/Pocket'
 import AddToPocket from 'components/AddToPocket'
 import PocketTrending from 'components/PocketTrending'
+import{$, $$} from 'dom'
 
 console.info('Hello GitHub Improved!')
 
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
 
 const createInstance = (vm, props) => new Vue({
   store,
@@ -48,7 +47,7 @@ function addPocketTrending() {
 
   $$('.repo-list li .starring-container').forEach(el => {
     const slug = el.parentNode.parentNode.querySelector('h3 a').getAttribute('href').substr(1)
-    
+
     el.querySelectorAll('form').forEach(form => {
       const button = document.createElement('button')
       form.appendChild(button)
